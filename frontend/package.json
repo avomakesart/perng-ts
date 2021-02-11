@@ -21,6 +21,7 @@
     "react-is": "^17.0.1",
     "tailwindcss": "^2.0.2",
     "urql": "^1.11.6",
+    "wonka": "^4.0.15",
     "yup": "^0.32.8"
   },
   "devDependencies": {

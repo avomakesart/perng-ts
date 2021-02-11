@@ -2,12 +2,13 @@ import { useField } from 'formik';
 import React, { InputHTMLAttributes, ReactElement } from 'react';
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
-  type: string;
+  type: string | any;
   placeholder: string;
   onChange: any;
   label: string | ReactElement;
   htmlFor: string;
   name: string;
+  textarea?: boolean;
 };
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -16,8 +17,11 @@ export const InputField: React.FC<InputFieldProps> = ({
   onChange,
   label,
   htmlFor,
+  textarea,
   ...props
 }) => {
+  // let C = input;
+  // if (textarea) C = texarea
   const [field, { error }] = useField(props);
   return (
     <>
@@ -34,7 +38,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         type={type}
         placeholder={placeholder}
         value={field.value}
-        onChange={onChange}
+        onChange={field.onChange}
         name={field.name}
       />
       {error ? <span className='text-sm text-red-600'>{error}</span> : null}

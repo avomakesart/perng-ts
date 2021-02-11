@@ -11,7 +11,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   let body = null;
 
   if (fetching) {
-  } else if (!data.me) {
+  } else if (!data?.me) {
     body = (
       <>
         <button className='text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900'>
@@ -48,7 +48,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
 
         <button
           onClick={() => {
-            logout()
+            logout();
           }}
           className='text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900'
         >

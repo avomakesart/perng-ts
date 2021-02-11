@@ -1,28 +1,39 @@
 import 'reflect-metadata';
-import { MikroORM } from '@mikro-orm/core';
 import { COOKIE_NAME, __prod__ } from './constants';
-// import { Post } from './entities/Post';
-import microConfig from './mikro-orm.config';
+import Redis from 'ioredis';
+import session from 'express-session';
+import connectRedis from 'connect-redis';
+import cors from 'cors';
+import * as dotenv from 'dotenv';
+import { createConnection } from 'typeorm';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { HelloResolver } from './resolvers/hello';
 import { PostResolver } from './resolvers/post';
 import { UserResolver } from './resolvers/user';
-import redis from 'redis';
-import session from 'express-session';
-import connectRedis from 'connect-redis';
-import cors from 'cors';
-import { MyContext } from './types';
+import { ProjectResolver } from './resolvers/project';
+import { Post } from './entities/Post';
+import { Users } from './entities/User';
+import { Project } from './entities/Project';
 
 const main = async () => {
-  const orm = await MikroORM.init(microConfig);
-  await orm.getMigrator().up();
-
+  const conn = await createConnection({
+    type: 'postgres',
+    database: 'portfolioapp',
+    username: 'postgres',
+    password: 'secret',
+    logging: true,
+    synchronize: true,
+    entities: [Post, Users, Project],
+  });
+ 
   const app = express();
 
+  dotenv.config({ path: '../.env' });
+
   const RedisStore = connectRedis(session);
-  const redisClient = redis.createClient();
+  const redis = new Redis();
 
   app.use(
     cors({
@@ -35,7 +46,7 @@ const main = async () => {
     session({
       name: COOKIE_NAME,
       store: new RedisStore({
-        client: redisClient,
+        client: redis,
         disableTouch: true,
       }),
       cookie: {
@@ -52,10 +63,10 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver, PostResolver, UserResolver],
+      resolvers: [HelloResolver, PostResolver, UserResolver, ProjectResolver],
       validate: false,
     }),
-    context: ({ req, res }): MyContext => ({ em: orm.em, req, res }),
+    context: ({ req, res }) => ({ req, res, redis }),
   });
 
   apolloServer.applyMiddleware({

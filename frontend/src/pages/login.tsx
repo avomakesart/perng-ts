@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
+import NavLink from 'next/link';
 import { InputField } from '../components/InputField/InputField';
 import { useLoginMutation } from '../generated/graphql';
 import { toErrorMap } from '../utils/toErrorMap';
@@ -110,12 +111,11 @@ const Login: React.FC<{}> = ({}) => {
                     label={
                       <div className='flex justify-between'>
                         {'Password'}
-                        <a
-                          href='#'
-                          className='text-xs text-gray-500 dark:text-gray-300 hover:underline'
-                        >
-                          Forget Password?
-                        </a>
+                        <NavLink href='#'>
+                          <p className='text-xs text-gray-500 dark:text-gray-300 hover:underline'>
+                            Forgot Password?
+                          </p>
+                        </NavLink>
                       </div>
                     }
                     type='password'
@@ -134,12 +134,11 @@ const Login: React.FC<{}> = ({}) => {
                 <div className='flex items-center justify-between mt-4'>
                   <span className='w-1/5 border-b dark:border-gray-600 md:w-1/4'></span>
 
-                  <a
-                    href='#'
-                    className='text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline'
-                  >
-                    or sign up
-                  </a>
+                  <NavLink href='/register'>
+                    <p className='text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline'>
+                      or sign up
+                    </p>
+                  </NavLink>
 
                   <span className='w-1/5 border-b dark:border-gray-600 md:w-1/4'></span>
                 </div>

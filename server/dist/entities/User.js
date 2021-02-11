@@ -10,56 +10,57 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Users = void 0;
-const core_1 = require("@mikro-orm/core");
 const type_graphql_1 = require("type-graphql");
-let Users = class Users {
-    constructor() {
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
-    }
+const typeorm_1 = require("typeorm");
+const Post_1 = require("./Post");
+let Users = class Users extends typeorm_1.BaseEntity {
 };
 __decorate([
     type_graphql_1.Field(),
-    core_1.PrimaryKey(),
+    typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
 ], Users.prototype, "id", void 0);
 __decorate([
-    type_graphql_1.Field(() => String),
-    core_1.Property({ type: 'date' }),
-    __metadata("design:type", Object)
-], Users.prototype, "createdAt", void 0);
-__decorate([
-    type_graphql_1.Field(() => String),
-    core_1.Property({ type: 'date', onUpdate: () => new Date() }),
-    __metadata("design:type", Object)
-], Users.prototype, "updatedAt", void 0);
-__decorate([
     type_graphql_1.Field(),
-    core_1.Property({ type: 'text' }),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], Users.prototype, "firstName", void 0);
 __decorate([
     type_graphql_1.Field(),
-    core_1.Property({ type: 'text' }),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], Users.prototype, "lastName", void 0);
 __decorate([
     type_graphql_1.Field(),
-    core_1.Property({ type: 'text', unique: true }),
+    typeorm_1.Column({ unique: true }),
     __metadata("design:type", String)
 ], Users.prototype, "email", void 0);
 __decorate([
     type_graphql_1.Field(),
-    core_1.Property({ type: 'text', unique: true }),
+    typeorm_1.Column({ unique: true }),
     __metadata("design:type", String)
 ], Users.prototype, "username", void 0);
 __decorate([
-    core_1.Property({ type: 'text' }),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], Users.prototype, "password", void 0);
+__decorate([
+    typeorm_1.OneToMany(() => Post_1.Post, post => post.creator),
+    __metadata("design:type", Array)
+], Users.prototype, "posts", void 0);
+__decorate([
+    type_graphql_1.Field(() => String),
+    typeorm_1.CreateDateColumn(),
+    __metadata("design:type", Date)
+], Users.prototype, "createdAt", void 0);
+__decorate([
+    type_graphql_1.Field(() => String),
+    typeorm_1.UpdateDateColumn(),
+    __metadata("design:type", Date)
+], Users.prototype, "updatedAt", void 0);
 Users = __decorate([
     type_graphql_1.ObjectType(),
-    core_1.Entity()
+    typeorm_1.Entity()
 ], Users);
 exports.Users = Users;
 //# sourceMappingURL=User.js.map
