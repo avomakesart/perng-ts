@@ -19,11 +19,11 @@ Type 'yarn install' on your terminal
 
 You should have a postgres database running and a redis server running as well in order to have the backend fully working.
 
-How to install PostgreSQL: https://www.google.com/search?q=how+t...​
+How to install PostgreSQL: https://rb.gy/xd7s8x
 
-How to install Redis: https://www.google.com/search?q=how+t...​
+How to install Redis: https://rb.gy/kqvafz
 
-Node.js Docker: https://nodejs.org/en/docs/guides/nod...​
+Node.js Docker: https://rb.gy/eoqs5l
 
 ## Frontend
 I am using NextJS for the frontend side and working with tons of typescript stuff.
