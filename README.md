@@ -1,9 +1,6 @@
 # PERNG-TS
 Postgres, Express, React, Node, Graphql and Typescript boilerplate.
 
-# cdt-data-extraction
-Items related to Common Developer Toolkit data extraction
-
 ## Backend usage
 
 Clone the repo and then go to the server folder, inside the server folder you should do `yarn install` to install all the dependencies.
