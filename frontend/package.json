@@ -15,7 +15,7 @@
     "graphql": "^15.5.0",
     "next": "latest",
     "next-urql": "^2.2.0",
-    "postcss": "^8.1.10",
+    "postcss": "^8.2.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-is": "^17.0.1",
